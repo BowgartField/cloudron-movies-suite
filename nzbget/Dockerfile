@@ -14,7 +14,7 @@ RUN echo "**** update host ****" && \
 RUN wget https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.gz && \
     tar xf boost_1_84_0.tar.gz && \
     cd boost_1_84_0 && \
-    ./bootstrap.sh && \
+    ./bootstrap.sh --prefix=/usr/ && \
     ./b2 install
     
 RUN echo "**** build nzbget ****" && \
