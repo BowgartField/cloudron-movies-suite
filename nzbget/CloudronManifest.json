@@ -1,8 +1,8 @@
 {
-    "id": "prowlarr.com",
-    "title": "Prowlarr",
+    "id": "nzbget.com",
+    "title": "NZBGet",
     "author": "Jean-Benoît RICHEZ <jeanbenoit-richez@outlook.com>",
-    "description": "Prowlarr is an indexer manager/proxy built on the popular arr",
+    "description": "NZBGet is an efficient, open-source Usenet software designed for downloading binary content from Usenet newsgroups.",
     "tagline": "A great beginning",
     "version": "0.0.1",
     "healthCheckPath": "/",

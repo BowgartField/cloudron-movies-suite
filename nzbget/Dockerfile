@@ -16,7 +16,7 @@ RUN wget https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_
     cd boost_1_84_0 && \
     ./bootstrap.sh --prefix=/usr/ && \
     ./b2 install
-    
+
 RUN echo "**** build nzbget ****" && \
     mkdir -p  /app/code/nzbget && \
     git clone https://github.com/nzbgetcom/nzbget.git nzbget && \
