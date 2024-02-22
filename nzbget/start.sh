@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 set -e
 
-su -p cloudron -c "/app/code/nzbget/nzbget -s -c /app/data/config/nzbget/nzbget.conf -o OutputMode=log"
+su -p cloudron -c "/app/code/nzbget/nzbget -s -c /app/data/config/nzbget.conf -o OutputMode=log"

@@ -21,15 +21,11 @@ RUN echo "**** build nzbget ****" && \
     mkdir -p  /app/code/nzbget && \
     git clone https://github.com/nzbgetcom/nzbget.git nzbget && \
     cd nzbget/ && \
-    git checkout ${NZBGET_RELEASE}
-
-WORKDIR /nzbget
-
-RUN autoreconf --install
-RUN ./configure bindir='${exec_prefix}'
-
-RUN make -j ${MAKE_JOBS}
-RUN make prefix=/app/code/nzbget install
+    git checkout ${NZBGET_RELEASE} && \
+    autoreconf --install && \
+    ./configure bindir='${exec_prefix}' && \
+    make -j ${MAKE_JOBS} && \
+    make prefix=/app/code/nzbget install
 # RUN sed -i \
 #     -e "s#^MainDir=.*#MainDir=/downloads#g" \
 #     -e "s#^ScriptDir=.*#ScriptDir=$\{MainDir\}/scripts#g" \
@@ -45,7 +41,7 @@ RUN make prefix=/app/code/nzbget install
 #     -e "s#^AuthorizedIP=.*#AuthorizedIP=127.0.0.1#g" \
 #    /app/code/nzbget/share/nzbget/nzbget.config
 RUN  mv /app/code/nzbget/share/nzbget/webui /app/code/nzbget/ && \
-  cp /app/code/nzbget/share/nzbget/nzbget.conf /app/code/nzbget/webui/nzbget.conf.template && \
+  cp /app/code/nzbget/share/nzbget/nzbget.conf /app/code/nzbget/webui/nzbget.conf && \
   ln -s /usr/bin/7z /app/code/nzbget/7za && \
   ln -s /usr/bin/unrar /app/code/nzbget/unrar && \
   cp /nzbget/pubkey.pem /app/code/nzbget/pubkey.pem && \
