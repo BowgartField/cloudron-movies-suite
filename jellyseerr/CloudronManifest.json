@@ -1,8 +1,8 @@
 {
   "id": "jellyseerr.com",
   "title": "Jellyseerr",
-  "author": "Girish Ramakrishnan <girish@cloudron.io>",
-  "description": "Jellyseerr app",
+  "author": "Jean-Benoît RICHEZ <jeanbenoit-richez@outlook.com>",
+  "description": "Jellyseerr is a free and open source software application for managing requests for your media library. ",
   "tagline": "A great beginning",
   "version": "0.0.1",
   "healthCheckPath": "/",
