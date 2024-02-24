@@ -2,7 +2,7 @@
     "id": "prowlarr.com",
     "title": "Prowlarr",
     "author": "Jean-Benoît RICHEZ <jeanbenoit-richez@outlook.com>",
-    "description": "Prowlarr app",
+    "description": "Prowlarr is an indexer manager/proxy built on the popular *arr .net",
     "tagline": "A great beginning",
     "version": "0.0.1",
     "healthCheckPath": "/",
