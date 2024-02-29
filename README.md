@@ -7,9 +7,7 @@ As cloudron team has not the right to plublish piracy related applications I dec
 - [Prowlarr](https://github.com/Prowlarr/Prowlarr) cloudron app
 - [Radarr](https://github.com/Radarr/Radarr) cloudron app
 - [Nzbget](https://github.com/nzbgetcom/nzbget) cloudron app
-
-**Coming soon:**
-- Sonarr
+- [Sonarr](https://github.com/Sonarr/Sonarr) cloudron app
 
 All docker image are available on docker hub: [Docker Hub](https://hub.docker.com/u/jbrichez)
 
@@ -86,6 +84,13 @@ Prowlarr is an indexer manager/proxy built on the popular *arr .net
 </a>
 
 Radarr is a movie collection manager for Usenet and BitTorrent users.
+
+### Sonarr
+<a href="https://hub.docker.com/repository/docker/jbrichez/cloudron-sonarr/general">
+<img src="./docker.png" alt="docker]" width="50" height="auto"> Docker image
+</a>
+
+Sonarr is a PVR for Usenet and BitTorrent users.
 
 ### Nzbget
 <a href="https://hub.docker.com/repository/docker/jbrichez/cloudron-nzbget/general">
