@@ -12,4 +12,4 @@ RUN echo "**** install packages ****" && \
     
 RUN ln -s /app/code/reiverr/config /app/data 
 
-CMD [ "yarn", "deploy" ]
+CMD [ "yarn","--cwd","/app/code/reiverr", "deploy" ]
