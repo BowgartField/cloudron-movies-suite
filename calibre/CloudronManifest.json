@@ -6,7 +6,7 @@
     "tagline": "A great beginning",
     "version": "0.0.1",
     "healthCheckPath": "/",
-    "httpPort": 8181,
+    "httpPort": 8080,
     "addons": {
       "localstorage": {}
     },

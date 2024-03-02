@@ -4,7 +4,8 @@ ENV \
   CUSTOM_PORT="8080" \
   CUSTOM_HTTPS_PORT="8181" \
   HOME="/app/data/config/" \
-  TITLE="Calibre"
+  TITLE="Calibre" \
+  QTWEBENGINE_DISABLE_SANDBOX="1"
 
 RUN mkdir -p /app/code/calibre
 WORKDIR /app/code
@@ -26,6 +27,8 @@ RUN echo "**** install runtime packages ****" && \
     libxcb-randr0 \
     libxcb-render-util0 \
     libxcb-xinerama0 \
+    libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libxtst-dev libxss-dev libdbus-1-dev libevent-dev libfontconfig1-dev libcap-dev libpulse-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libegl1-mesa-dev \
+    qt6-base-dev \
     poppler-utils \
     python3 \
     python3-xdg \
