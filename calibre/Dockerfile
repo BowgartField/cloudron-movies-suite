@@ -62,6 +62,7 @@ RUN echo "**** cleanup ****" && \
 RUN chown -R cloudron:cloudron /app/code/calibre
 
 COPY start.sh /app/code/
-COPY users.sqlite /app/code/calibre
+COPY users.sqlite /tmp/users.sqlite
+COPY config.conf /tmp/config.conf
 
 CMD [ "/app/code/start.sh" ]
