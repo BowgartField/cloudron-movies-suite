@@ -61,6 +61,6 @@ cd $cur_dir
 
 # Print build date
 BUILD_DATE=$(cat /build_date.txt)
-echo "=== Image build date: $BUILD_DATE ===" 
+echo "=== Image build date: $BUILD_DATE ==="
 
-python3 /app/code/text-generation-webui/server.py
+exec python3 /app/code/text-generation-webui/server.py

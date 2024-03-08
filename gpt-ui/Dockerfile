@@ -42,7 +42,6 @@ FROM app_cpu AS app_cpu_x
 RUN chmod +x /scripts/build_extensions.sh && \
     . /scripts/build_extensions.sh
 
-
 # COMMON
 FROM cloudron/base:4.2.0@sha256:46da2fffb36353ef714f97ae8e962bd2c212ca091108d768ba473078319a47f4 AS run_base
 # Runtime pre-reqs
@@ -74,9 +73,6 @@ RUN chmod +x /scripts/*
 
 COPY ./config /app/data/config
 
-# Run
-ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
-
 RUN ln -s /app/code/text-generation-webui/characters /app/data/config/characters
 RUN ln -s /app/code/text-generation-webui/loras /app/data/config/loras
 RUN ln -s /app/code/text-generation-webui/models /app/data/config/models
@@ -91,3 +87,6 @@ FROM run_base AS base-cpu
 COPY --from=app_cpu $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "CPU Base" > /variant.txt
+
+# Run
+CMD ["/src/start.sh"]
