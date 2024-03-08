@@ -1,0 +1,31 @@
+{
+  "id": "gpt.com",
+  "title": "Text generation web UI",
+  "author": "Jean-Benoît RICHEZ <jeanbenoit-richez@outlook.com>",
+  "description": "A Gradio web UI for Large Language Models.",
+  "tagline": "A great beginning",
+  "version": "0.0.1",
+  "healthCheckPath": "/",
+  "httpPort": 7860,
+  "addons": {
+    "localstorage": {}
+  },
+  "tcpPorts": {
+    "API_PORT": {
+      "title": "API Port",
+      "description": "Api Port for the web UI",
+      "defaultValue": 5000
+    },
+    "STREAMING_PORT": {
+      "title": "STREAMING Port",
+      "description": "Streaming port",
+      "defaultValue": 5005
+    }
+  },
+  "manifestVersion": 2,
+  "website": "https://www.example.com",
+  "contactEmail": "support@clourdon.io",
+  "icon": "file://icon.png",
+  "tags": [ "test", "collaboration" ],
+  "mediaLinks": [ "https://images.rapgenius.com/fd0175ef780e2feefb30055be9f2e022.520x343x1.jpg" ]
+}
