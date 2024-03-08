@@ -72,10 +72,12 @@ RUN echo "$VERSION_TAG" > /version_tag.txt
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*
 
+COPY ./config /app/data/config
+
 # Run
 ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
 
-RUN ls -s /app/code/text-generation-webui/characters /app/data/config/characters
+RUN ln -s /app/code/text-generation-webui/characters /app/data/config/characters
 RUN ls -s /app/code/text-generation-webui/loras /app/data/config/loras
 RUN ls -s /app/code/text-generation-webui/models /app/data/config/models
 RUN ls -s /app/code/text-generation-webui/presets /data/config/presets
