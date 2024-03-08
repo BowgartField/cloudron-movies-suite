@@ -23,9 +23,6 @@ RUN . /scripts/checkout_src_version.sh
 RUN mkdir -p /app/code
 RUN cp -r /src/text-generation-webui /app/code/text-generation-webui
 
-RUN ls -la /src
-RUN ls -la /app/code
-
 # CPU [Everyone can join in, as long as they have the patience.]
 # Base
 FROM app_base AS app_cpu
@@ -75,7 +72,12 @@ RUN echo "$VERSION_TAG" > /version_tag.txt
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*
 
-RUN ln -s /app/code/text-generation-webui/config /app/data/config
+RUN ls -s /app/code/text-generation-webui/characters /app/data/config/characters
+RUN ls -s /app/code/text-generation-webui/loras /app/data/config/loras
+RUN ls -s /app/code/text-generation-webui/models /app/data/config/models
+RUN ls -s /app/code/text-generation-webui/presets /data/config/presets
+RUN ls -s /app/code/text-generation-webui/prompts /app/data/config/prompts
+RUN ls -s /app/code/text-generation-webui/training /app/data/config/training
 
 # Run
 ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
