@@ -78,11 +78,11 @@ COPY ./config /app/data/config
 ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
 
 RUN ln -s /app/code/text-generation-webui/characters /app/data/config/characters
-RUN ls -s /app/code/text-generation-webui/loras /app/data/config/loras
-RUN ls -s /app/code/text-generation-webui/models /app/data/config/models
-RUN ls -s /app/code/text-generation-webui/presets /data/config/presets
-RUN ls -s /app/code/text-generation-webui/prompts /app/data/config/prompts
-RUN ls -s /app/code/text-generation-webui/training /app/data/config/training
+RUN ln -s /app/code/text-generation-webui/loras /app/data/config/loras
+RUN ln -s /app/code/text-generation-webui/models /app/data/config/models
+RUN ln -s /app/code/text-generation-webui/presets /data/config/presets
+RUN ln -s /app/code/text-generation-webui/prompts /app/data/config/prompts
+RUN ln -s /app/code/text-generation-webui/training /app/data/config/training
 
 # CPU
 # Base
