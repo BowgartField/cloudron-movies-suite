@@ -9,21 +9,23 @@ function ctrl_c {
 # Register the keyboard interrupt handler
 trap ctrl_c SIGTERM SIGINT SIGQUIT SIGHUP
 
+mkdir -p /app/data/config
+
 # Generate default configs if empty
-CONFIG_DIRECTORIES=("characters" "loras" "models" "presets" "prompts" "training/datasets" "training/formats")
+CONFIG_DIRECTORIES=("characters" "extensions" "loras" "models" "presets" "prompts" "training" "training/datasets" "training/formats")
 for config_dir in "${CONFIG_DIRECTORIES[@]}"; do
-  if [ -z "$(ls /app/data/config/"$config_dir")" ]; then
+  if [ ! -e "/app/data/config/"$config_dir ]; then
     echo "*** Initialising config for: '$config_dir' ***"
-    cp -ar /src/"$config_dir"/* /app/data/config/"$config_dir"/
+    mkdir /app/data/config/"$config_dir"/
     chown -R 1000:1000 /app/data/config/"$config_dir"  # Not ideal... but convenient.
   fi
 done
 
 # Populate extension folders if empty
-EXTENSIONS_SRC="/src/extensions"
+EXTENSIONS_SRC="/src/text-generation-webui/extensions"
 EXTENSIONS_DEFAULT=($(find "$EXTENSIONS_SRC" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;))
 for extension_dir in "${EXTENSIONS_DEFAULT[@]}"; do
-  if [ -z "$(ls /app/data/config/extensions/"$extension_dir" 2>/dev/null)" ]; then
+  if [ ! -e "/app/data/config/extensions/"$extension_dir ]; then
     echo "*** Initialising extension: '$extension_dir' ***"
     mkdir -p /app/data/config/extensions/"$extension_dir"
     cp -ar "$EXTENSIONS_SRC"/"$extension_dir"/* /app/data/config/extensions/"$extension_dir"/
@@ -61,9 +63,4 @@ cd $cur_dir
 BUILD_DATE=$(cat /build_date.txt)
 echo "=== Image build date: $BUILD_DATE ===" 
 
-# Assemble CMD and extra launch args
-eval "extra_launch_args=($EXTRA_LAUNCH_ARGS)"
-LAUNCHER=($@ $extra_launch_args)
-
-# Launch the server with ${CMD[@]} + ${EXTRA_LAUNCH_ARGS[@]}
-"${LAUNCHER[@]}"
+python3 /app/code/text-generation-webui/server.py

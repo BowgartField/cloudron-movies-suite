@@ -3,7 +3,7 @@ FROM cloudron/base:4.2.0@sha256:46da2fffb36353ef714f97ae8e962bd2c212ca091108d768
 
 # Pre-reqs
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    git vim build-essential python3-dev python3-venv python3-pip
+ git vim build-essential python3-dev python3-venv python3-pip
 
 # Instantiate venv and pre-activate
 RUN pip3 install virtualenv
@@ -18,7 +18,7 @@ RUN chmod +x /scripts/*
 
 RUN git clone https://github.com/oobabooga/text-generation-webui /src/text-generation-webui
 
-RUN . /scripts/checkout_src_version.sh
+# RUN . /scripts/checkout_src_version.sh
 # Copy source to app
 RUN mkdir -p /app/code
 RUN cp -r /src/text-generation-webui /app/code/text-generation-webui
@@ -80,7 +80,7 @@ ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
 RUN ln -s /app/code/text-generation-webui/characters /app/data/config/characters
 RUN ln -s /app/code/text-generation-webui/loras /app/data/config/loras
 RUN ln -s /app/code/text-generation-webui/models /app/data/config/models
-RUN ln -s /app/code/text-generation-webui/presets /data/config/presets
+RUN ln -s /app/code/text-generation-webui/presets /app/data/config/presets
 RUN ln -s /app/code/text-generation-webui/prompts /app/data/config/prompts
 RUN ln -s /app/code/text-generation-webui/training /app/data/config/training
 
@@ -91,5 +91,3 @@ FROM run_base AS base-cpu
 COPY --from=app_cpu $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "CPU Base" > /variant.txt
-ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/code/text-generation-webui/server.py"]
