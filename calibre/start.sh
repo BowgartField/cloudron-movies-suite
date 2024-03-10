@@ -2,16 +2,18 @@
 
 set -eu
 
-config_path=/app/data/config/config.config
+config_path=/app/data/config/config.conf
 # Create the directory if it doesn't exist
 if [[ ! -e $config_path ]]; then
-    cp /app/code/config.config $config_path
+    mv /tmp/config.conf $config_path
 fi
+
+chown -R cloudron:cloudron /app/data/config/config.conf
 
 db_path=/app/data/config/library
 
 # Get "db_path" var from the config file
-. /app/data/config/config.config
+. /app/data/config/config.conf
 
 # Create the directory if it doesn't exist
 if [[ ! -e $db_path ]]; then

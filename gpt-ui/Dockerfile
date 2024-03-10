@@ -1,5 +1,5 @@
 # build stage
-FROM cloudron/base:4.2.0@sha256:46da2fffb36353ef714f97ae8e962bd2c212ca091108d768ba473078319a47f4 AS app_base
+FROM cloudron/base:4.2.0@sha256:46da2fffb36353ef714f97ae8e962bd2c212ca091108d768ba473078319a47f4
 
 # Pre-reqs
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -23,33 +23,21 @@ RUN git clone https://github.com/oobabooga/text-generation-webui /src/text-gener
 RUN mkdir -p /app/code
 RUN cp -r /src/text-generation-webui /app/code/text-generation-webui
 
-# CPU [Everyone can join in, as long as they have the patience.]
-# Base
-FROM app_base AS app_cpu
 # Install pytorch for CPU
 RUN pip3 install torch==2.1.* torchvision==0.16.* torchaudio==2.1.* \
     --index-url https://download.pytorch.org/whl/cpu
 
-RUN ls -la /src
-RUN ls -la /app/code
-
 # Install oobabooga/text-generation-webui
 RUN pip3 install -r /app/code/text-generation-webui/requirements_cpu_only.txt
 
-# Extended
-FROM app_cpu AS app_cpu_x
 # Install extensions
 RUN chmod +x /scripts/build_extensions.sh && \
     . /scripts/build_extensions.sh
 
-# COMMON
-FROM cloudron/base:4.2.0@sha256:46da2fffb36353ef714f97ae8e962bd2c212ca091108d768ba473078319a47f4 AS run_base
 # Runtime pre-reqs
 RUN apt-get update && apt-get install --no-install-recommends -y \
     python3-venv python3-dev git
-# Copy app and src
-COPY --from=app_base /app/code /app/code
-COPY --from=app_base /src /src
+
 # Instantiate venv and pre-activate
 ENV VIRTUAL_ENV=/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
@@ -71,22 +59,32 @@ RUN echo "$VERSION_TAG" > /version_tag.txt
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*
 
-COPY ./config /app/data/config
+WORKDIR /app/code/text-generation-webui
+RUN mkdir -p /tmp/config/characters
+RUN mv characters/* /tmp/config/characters \
+    && mv loras /tmp/config \
+    &&	mv models /tmp/config \
+    &&	mv presets /tmp/config \
+    &&	mv prompts /tmp/config \ 
+    &&	mv training /tmp/config \
+    &&  mv extensions /tmp/config;
 
-RUN ln -s /app/code/text-generation-webui/characters /app/data/config/characters
-RUN ln -s /app/code/text-generation-webui/loras /app/data/config/loras
-RUN ln -s /app/code/text-generation-webui/models /app/data/config/models
-RUN ln -s /app/code/text-generation-webui/presets /app/data/config/presets
-RUN ln -s /app/code/text-generation-webui/prompts /app/data/config/prompts
-RUN ln -s /app/code/text-generation-webui/training /app/data/config/training
+RUN rm -r characters;
+ 
+RUN ln -s /app/data/characters /app/code/text-generation-webui/characters \
+    && ln -s /app/data/loras /app/code/text-generation-webui/loras \
+    && ln -s /app/data/models /app/code/text-generation-webui/models \
+    && ln -s /app/data/presets /app/code/text-generation-webui/presets \
+    && ln -s /app/data/prompts /app/code/text-generation-webui/prompts \
+    && ln -s /app/data/training /app/code/text-generation-webui/training \
+    && ln -s /app/data/extensions /app/code/text-generation-webui/extensions \
+    && ln -s /app/data/logs /app/code/text-generation-webui/logs \
+    && ln -s /app/data/cache /app/code/text-generation-webui/cache;
 
-# CPU
-# Base
-FROM run_base AS base-cpu
-# Copy venv
-COPY --from=app_cpu $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "CPU Base" > /variant.txt
 
+ENV PYTHONUNBUFFERED=1
+
 # Run
-CMD ["/src/start.sh"]
+CMD ["/scripts/start.sh"]

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Specify the directory containing the top-level folders
-directory="/app/code/config/extensions"
+directory="/app/code/text-generation-webui/extensions"
 
 # Iterate over the top-level folders
 for folder in "$directory"/*; do
