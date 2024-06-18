@@ -36,15 +36,20 @@ You need to be in the folder of the app you want to install before running the c
 You will need to create 2 volumes:
 - (1) volume as **nzbget download folder**
 - (2) volume as **your movies library** for jellybin
+- (3) (optional) volume as **your series library** for jellyfin
 
 Here is the guide to create cloudron volume: [guide](https://docs.cloudron.io/volumes/#add). </br>
 
 **I recommand to choose "Filesystem" mount type when you create the volumes.** </br>
 **⚠️ You need to physicaly create the folder on host before, cloudron can't create one for you.**
 
-You will need to mount (1) and (2) to Radarr's App. </br>
-Connect (1) to nzbget app. </br>
-Connect (2) to jellybin app.
+To connect a volume to an specific app, go app's settings, then "storage" tab and "mount" options on right panel.
+
+You will need to:
+- connect (1) and (2) to Radarr's App. </br>
+- connect (1) to nzbget app. </br>
+- connect (2) to jellybin app. </br>
+- (optional) connect (3) to jellyfin app. </br>
 
 You can mount volumes to app in the app's settings and "storage" tab.
 
