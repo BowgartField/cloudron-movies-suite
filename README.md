@@ -15,6 +15,10 @@ All docker image are available on docker hub: [Docker Hub](https://hub.docker.co
 Those apps are custom so unfortunately automatic updates are not possible. Thus, I will need to update manually docker's images on every update.
 I will try my best but you can still make a PR with updates.
 
+⚠ Alaways install the applications wil the greatest version image. 
+for example `jbrichez/cloudron-jellyseerr` greatest is `0.5`, so install `jbrichez/cloudron-jellyseerr:0.5` with cloudron cli.
+If not cloudron CLI will installs the `latest` version which is not valid. Why ? Because cloudron internal registry need a tagged's image version other from `latest` to be able to update version when new image is out.
+
 ## prerequisites
 You need to install Cloudron CLI: [here](https://docs.cloudron.io/packaging/cli/).
 After you need to connect the CLI to your cloudron instance.
