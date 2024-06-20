@@ -118,5 +118,5 @@ Modify inside the file, set:
 - `ConfigTemplate` to `/app/code/nzbget/webui/nzbget.conf`
 
 If you have an error in the logs telling that the app didn't have access to app data, try running on your host: </br>
-`chown -R cloudron config` on `/app/data` folder.
+`chown -R cloudron /app/data/config`.
 
