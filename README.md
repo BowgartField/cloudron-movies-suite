@@ -33,7 +33,7 @@ as said [here](https://docs.cloudron.io/packaging/tutorial/#install) in the doc.
 You need to be in the folder of the app you want to install before running the command. Because cloudron CLI needs to read `CloudronManifest.json` file.
 
 ### Cloudron volumes
-You will need to create 2 volumes:
+You will need to create:
 - (1) volume as **nzbget download folder**
 - (2) volume as **your movies library** for jellybin
 - (3) (optional) volume as **your series library** for jellyfin
