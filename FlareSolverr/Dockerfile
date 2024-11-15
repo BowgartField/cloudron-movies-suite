@@ -39,17 +39,13 @@ RUN dpkg -i /libgl1-mesa-dri.deb \
     && chown -R flaresolverr:flaresolverr .
 
 # Install Python dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt \
+RUN pip install -r /app/data/flaresolverr/requirements.txt \
     # Remove temporary files
     && rm -rf /root/.cache
 
 USER flaresolverr
 
 RUN mkdir -p "/app/data/flaresolverr/.config/chromium/Crash Reports/pending"
-
-COPY src .
-COPY package.json ../
 
 EXPOSE 8191
 EXPOSE 8192
