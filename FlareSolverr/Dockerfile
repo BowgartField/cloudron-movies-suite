@@ -13,7 +13,7 @@ RUN apt-get update \
     && equivs-build adwaita-icon-theme \
     && mv adwaita-icon-theme_*.deb /adwaita-icon-theme.deb
 
-RUN git clone https://github.com/FlareSolverr/FlareSolverr.git /app/data/flaresolverr
+RUN git clone https://github.com/FlareSolverr/FlareSolverr.git /app/code/flaresolverr
 
 # Install dependencies and create flaresolverr user
 # You can test Chromium running this command inside the container:
@@ -21,40 +21,43 @@ RUN git clone https://github.com/FlareSolverr/FlareSolverr.git /app/data/flareso
 # The error traces is like this: "*** stack smashing detected ***: terminated"
 # To check the package versions available you can use this command:
 #    apt-cache madison chromium
-WORKDIR /app/data/flaresolverr
+WORKDIR /app/code/flaresolverr
     # Install dummy packages
 RUN dpkg -i /libgl1-mesa-dri.deb \
     && dpkg -i /adwaita-icon-theme.deb \
     # Install dependencies
     && apt-get update \
-    && apt-get install -y --no-install-recommends chromium chromium-common chromium-driver xvfb dumb-init \
+    && apt-get install -y --no-install-recommends chromium-driver xvfb dumb-init \
         procps curl vim xauth \
     # Remove temporary files and hardware decoding libraries
     && rm -rf /var/lib/apt/lists/* \
     && rm -f /usr/lib/x86_64-linux-gnu/libmfxhw* \
     && rm -f /usr/lib/x86_64-linux-gnu/mfx/* \
     # Create flaresolverr user
-    && useradd --home-dir /app/data --shell /bin/sh flaresolverr \
+    && useradd --home-dir /app/code --shell /bin/sh flaresolverr \
     && mv /usr/bin/chromedriver chromedriver \
-    && chown -R flaresolverr:flaresolverr .
+    && chown -R cloudron:cloudron .
+
+RUN sudo add-apt-repository ppa:saiarcot895/chromium-beta
+RUN sudo apt install -y chromium-browser
+
+RUN mkdir -p "/app/code/flaresolverr/.config"
+RUN ln -s /app/data/config /app/code/flaresolverr/.config 
+RUN ln -s /app/data/cache /root/.local
 
 # Install Python dependencies
-COPY requirements.txt .
 RUN pip install -r requirements.txt \
     # Remove temporary files
     && rm -rf /root/.cache
 
-USER flaresolverr
+COPY start.sh /app/code
+COPY config.conf /tmp/config.conf
 
-RUN mkdir -p "/app/data/flaresolverr/.config/chromium/Crash Reports/pending"
-
-COPY src .
-COPY package.json ../
-
-EXPOSE 8191
-EXPOSE 8192
+ENV LANG=en_EN
+ENV TZ=Europe/Paris
+ENV LOG_LEVEL=debug
 
 # dumb-init avoids zombie chromium processes
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-CMD ["/usr/local/bin/python", "-u", "/app/data/flaresolverr/flaresolverr.py"]
+CMD ["/app/code/start.sh"]
