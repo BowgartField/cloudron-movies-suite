@@ -1,0 +1,19 @@
+{
+  "id": "sabnzbd.com",
+  "title": "SABnzbd",
+  "author": "Jean-Benoît RICHEZ <jeanbenoit-richez@outlook.com>",
+  "description": "SABnzbd is an Open Source Binary Newsreader written in Python.",
+  "tagline": "A great beginning",
+  "version": "0.0.1",
+  "healthCheckPath": "/",
+  "httpPort": 9494,
+  "addons": {
+    "localstorage": {}
+  },
+  "manifestVersion": 2,
+  "website": "https://www.example.com",
+  "contactEmail": "support@clourdon.io",
+  "icon": "file://icon.png",
+  "tags": ["test", "collaboration"],
+  "mediaLinks": []
+}

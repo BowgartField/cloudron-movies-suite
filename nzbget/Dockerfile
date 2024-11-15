@@ -22,10 +22,12 @@ RUN echo "**** build nzbget ****" && \
     git clone https://github.com/nzbgetcom/nzbget.git nzbget && \
     cd nzbget/ && \
     git checkout ${NZBGET_RELEASE} && \
-    autoreconf --install && \
-    ./configure bindir='${exec_prefix}' && \
-    make -j ${MAKE_JOBS} && \
-    make prefix=/app/code/nzbget install
+    cmake .. -DCMAKE_INSTALL_PREFIX=. && \
+    cmake --build . -j ${MAKE_JOBS} && \
+    cmake --install . && \
+    cmake --build . --target install-conf
+
+
 # RUN sed -i \
 #     -e "s#^MainDir=.*#MainDir=/downloads#g" \
 #     -e "s#^ScriptDir=.*#ScriptDir=$\{MainDir\}/scripts#g" \

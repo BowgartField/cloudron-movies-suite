@@ -15,6 +15,10 @@ All docker image are available on docker hub: [Docker Hub](https://hub.docker.co
 Those apps are custom so unfortunately automatic updates are not possible. Thus, I will need to update manually docker's images on every update.
 I will try my best but you can still make a PR with updates.
 
+⚠ Alaways install the applications wil the greatest version image. 
+for example `jbrichez/cloudron-jellyseerr` greatest is `0.5`, so install `jbrichez/cloudron-jellyseerr:0.5` with cloudron cli.
+If not cloudron CLI will installs the `latest` version which is not valid. Why ? Because cloudron internal registry need a tagged's image version other from `latest` to be able to update version when new image is out.
+
 ## prerequisites
 You need to install Cloudron CLI: [here](https://docs.cloudron.io/packaging/cli/).
 After you need to connect the CLI to your cloudron instance.
@@ -29,18 +33,23 @@ as said [here](https://docs.cloudron.io/packaging/tutorial/#install) in the doc.
 You need to be in the folder of the app you want to install before running the command. Because cloudron CLI needs to read `CloudronManifest.json` file.
 
 ### Cloudron volumes
-You will need to create 2 volumes:
+You will need to create:
 - (1) volume as **nzbget download folder**
 - (2) volume as **your movies library** for jellybin
+- (3) (optional) volume as **your series library** for jellyfin
 
 Here is the guide to create cloudron volume: [guide](https://docs.cloudron.io/volumes/#add). </br>
 
 **I recommand to choose "Filesystem" mount type when you create the volumes.** </br>
 **⚠️ You need to physicaly create the folder on host before, cloudron can't create one for you.**
 
-You will need to mount (1) and (2) to Radarr's App. </br>
-Connect (1) to nzbget app. </br>
-Connect (2) to jellybin app.
+To connect a volume to an specific app, go app's settings, then "storage" tab and "mount" options on right panel.
+
+You will need to:
+- connect (1) and (2) to Radarr's App. </br>
+- connect (1) to nzbget app. </br>
+- connect (2) to jellybin app. </br>
+- (optional) connect (3) to jellyfin app. </br>
 
 You can mount volumes to app in the app's settings and "storage" tab.
 
@@ -109,5 +118,5 @@ Modify inside the file, set:
 - `ConfigTemplate` to `/app/code/nzbget/webui/nzbget.conf`
 
 If you have an error in the logs telling that the app didn't have access to app data, try running on your host: </br>
-`chown -R cloudron config` on `/app/data` folder.
+`chown -R cloudron /app/data/config`.
 

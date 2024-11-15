@@ -46,8 +46,8 @@ RUN ln -s /app/data/config /app/code/flaresolverr/.config
 RUN ln -s /app/data/cache /root/.local
 
 # Install Python dependencies
-RUN pip install -r requirements.txt \
-    # Remove temporary files
+
+RUN pip install -r /app/data/flaresolverr/requirements.txt \
     && rm -rf /root/.cache
 
 COPY start.sh /app/code
@@ -56,6 +56,11 @@ COPY config.conf /tmp/config.conf
 ENV LANG=en_EN
 ENV TZ=Europe/Paris
 ENV LOG_LEVEL=debug
+
+RUN mkdir -p "/app/data/flaresolverr/.config/chromium/Crash Reports/pending"
+
+EXPOSE 8191
+EXPOSE 8192
 
 # dumb-init avoids zombie chromium processes
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
