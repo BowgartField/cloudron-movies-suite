@@ -9,8 +9,5 @@ mkdir -p /app/config/data
 mkdir -p /app/config/logs
 mkdir -p /app/config/config
 
-# Ensure proper permissions
-chown -R cloudron:cloudron /app/config
-
 # Start Bazarr
 exec python3 /app/code/bazarr/bazarr.py
