@@ -5,8 +5,8 @@
   "description": "SABnzbd is an Open Source Binary Newsreader written in Python.",
   "tagline": "A great beginning",
   "version": "0.0.1",
-  "healthCheckPath": "/",
-  "httpPort": 9494,
+  "healthCheckPath": "/sabnzbd",
+  "httpPort": 8080,
   "addons": {
     "localstorage": {}
   },

@@ -27,4 +27,4 @@ RUN echo "**** install packages ****" && \
     
 # COPY sabnzbd.ini /app/data/config/sabnzbd/sabnzbd.ini
 
-CMD [ "python3", "-OO", "/app/code/sabnzbd/SABnzbd.py", "--config-file", "/app/data/config/sabnzbd/sabnzbd.ini"]
+CMD [ "python3", "-OO", "/app/code/sabnzbd/SABnzbd.py", "--config-file", "/app/data/config/sabnzbd/sabnzbd.ini", "--server", "0.0.0.0:8080"]
