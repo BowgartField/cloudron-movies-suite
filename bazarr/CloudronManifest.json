@@ -4,9 +4,9 @@
   "author": "Jean-Benoît RICHEZ <jeanbenoit-richez@outlook.com>",
   "description": "Bazarr is a companion application to Sonarr and Radarr. It manages and downloads subtitles based on your requirements.",
   "tagline": "A great beginning",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "healthCheckPath": "/",
-  "httpPort": 8787,
+  "httpPort": 6767,
   "addons": {
     "localstorage": {}
   },

@@ -3,4 +3,4 @@
 set -eu
 
 echo "Starting Bazarr..."
-exec /app/code/bazarr/Bazarr/Bazarr -nobrowser -data=/app/data/config/
+exec python3 /app/code/bazarr/bazarr.py

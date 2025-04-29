@@ -10,6 +10,9 @@ RUN wget --content-disposition "https://github.com/morpheus65535/bazarr/releases
     unzip bazarr.zip -d /app/code/bazarr && \
     rm bazarr.zip
 
+RUN cd /app/code/bazarr && \
+    python3 -m pip install -r requirements.txt
+
 COPY start.sh /app/code/
 RUN chown -R cloudron:cloudron /app/code/bazarr
 
