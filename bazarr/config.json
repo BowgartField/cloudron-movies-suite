@@ -1,0 +1,7 @@
+{
+  "data_dir": "/app/config/data",
+  "log_dir": "/app/config/logs",
+  "config_dir": "/app/config/config",
+  "database_path": "/app/config/data/bazarr.db",
+  "log_path": "/app/config/logs/bazarr.log"
+}
