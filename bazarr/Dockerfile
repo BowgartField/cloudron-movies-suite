@@ -15,9 +15,6 @@ RUN wget --content-disposition "https://github.com/morpheus65535/bazarr/releases
 RUN cd /app/code/bazarr && \
     python3 -m pip install -r requirements.txt
 
-# Copy configuration file
-COPY config.json /app/code/bazarr/config.json
-
 COPY start.sh /app/code/
 RUN chown -R cloudron:cloudron /app/code/bazarr /app/config
 
